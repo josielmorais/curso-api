@@ -3,7 +3,11 @@ package br.com.rest_apis.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 @Getter
@@ -12,15 +16,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-
     @Column(unique = true)
     private String email;
+    private String name;
     private String password;
 
 }

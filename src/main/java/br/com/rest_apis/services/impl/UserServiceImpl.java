@@ -1,6 +1,6 @@
 package br.com.rest_apis.services.impl;
 
-import br.com.rest_apis.domain.User;
+import br.com.rest_apis.domain.Usuario;
 import br.com.rest_apis.repositories.UserRepository;
 import br.com.rest_apis.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User findById(Integer id) {
-        Optional<User> opt = userRepository.findById(id);
+    public Usuario findById(Integer id) {
+        Optional<Usuario> opt = userRepository.findById(id);
 
         return opt.orElse(null);
     }

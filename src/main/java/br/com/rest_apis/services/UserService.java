@@ -1,9 +1,10 @@
 package br.com.rest_apis.services;
 
-import br.com.rest_apis.domain.User;
+import br.com.rest_apis.domain.Usuario;
+
 
 public interface UserService {
 
-    User findById(Integer id);
+    Usuario findById(Integer id);
 
 }
