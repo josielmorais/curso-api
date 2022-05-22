@@ -1,6 +1,6 @@
 package br.com.rest_apis.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +18,8 @@ public class UsuarioDTO {
 	 private String email;
 	 private String name;
 	
-	 @JsonIgnore
+	 // Nessa anotação: quando for leitura ignora, quando for escrita libera
+	 @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	 private String password;
 
 }
