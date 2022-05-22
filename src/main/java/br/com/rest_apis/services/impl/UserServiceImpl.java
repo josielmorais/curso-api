@@ -8,6 +8,7 @@ import br.com.rest_apis.services.excepitions.ObjectNotFoundExcepition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class UserServiceImpl implements UserService {
         Optional<Usuario> opt = userRepository.findById(id);
 
         return opt.orElseThrow(() -> new ObjectNotFoundExcepition("Objeto não encontrado"));
+    }
+    
+    public List<Usuario> findAll(){
+    	return userRepository.findAll();
     }
 }
