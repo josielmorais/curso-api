@@ -4,6 +4,7 @@ import br.com.rest_apis.domain.Usuario;
 import br.com.rest_apis.domain.dto.UsuarioDTO;
 import br.com.rest_apis.repositories.UserRepository;
 import br.com.rest_apis.services.UserService;
+import br.com.rest_apis.services.excepitions.DataIntegratyViolationExcepition;
 import br.com.rest_apis.services.excepitions.ObjectNotFoundExcepition;
 
 import org.modelmapper.ModelMapper;
@@ -37,7 +38,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Usuario create(UsuarioDTO obj) {
+		findByEmail(obj);
 		// TODO Auto-generated method stub
 		return repository.save(mapper.map(obj, Usuario.class));
+	}
+	
+	
+	private void findByEmail(UsuarioDTO obj) {
+		Optional<Usuario> usuario = repository.findByEmail(obj.getEmail());
+		if(usuario.isPresent()) {
+			throw new DataIntegratyViolationExcepition("E-mail já cadastrado no sistema");
+		}
 	}
 }
