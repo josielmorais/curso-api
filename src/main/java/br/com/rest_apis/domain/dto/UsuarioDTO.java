@@ -15,8 +15,8 @@ import lombok.Setter;
 public class UsuarioDTO {
 	
 	 private Integer id;
-	 private String email;
 	 private String name;
+	 private String email;
 	
 	 // Nessa anotação: quando for leitura ignora, quando for escrita libera
 	 @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

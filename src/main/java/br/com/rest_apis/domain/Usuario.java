@@ -21,9 +21,10 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
     @Column(unique = true)
     private String email;
-    private String name;
+   
     private String password;
 
 }
