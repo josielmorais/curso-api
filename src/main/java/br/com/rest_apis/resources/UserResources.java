@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +27,15 @@ import br.com.rest_apis.services.UserService;
 @RequestMapping(value = "/user")
 public class UserResources {
 
+	private static final String ID = "/{id}";
+	
 	@Autowired
 	private ModelMapper mapper;
 	
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = ID)
     public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id){
 
         return ResponseEntity.ok().body(mapper.map(userService.findById(id), UsuarioDTO.class));
@@ -53,10 +56,17 @@ public class UserResources {
 
     }
    
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = ID)
     public ResponseEntity<UsuarioDTO> update(@PathVariable Integer id,@RequestBody UsuarioDTO obj){
     	obj.setId(id);
     	return ResponseEntity.ok().body(mapper.map(userService.update(obj), UsuarioDTO.class));
+
+    }
+    
+    @DeleteMapping(value = ID)
+    public ResponseEntity<UsuarioDTO> delete(@PathVariable Integer id){
+    	userService.delete(id);
+        return ResponseEntity.noContent().build();
 
     }
 
