@@ -3,6 +3,7 @@ package br.com.rest_apis.services.impl;
 import br.com.rest_apis.domain.Usuario;
 import br.com.rest_apis.domain.dto.UsuarioDTO;
 import br.com.rest_apis.repositories.UserRepository;
+import br.com.rest_apis.services.excepitions.ObjectNotFoundExcepition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,17 @@ class UserServiceImplTest {
         Usuario reponse = service.findById(ID);
 
         Assertions.assertEquals(Usuario.class,reponse.getClass());
+    }
+    @Test
+    void whenFinByIdThenReturnAnObjectNotFoundException(){
+        Mockito.when(repository.findById(Mockito.anyInt())).thenThrow(new ObjectNotFoundExcepition("Objeto não encontrado"));
+
+        try{
+
+        }catch (Exception ex){
+            Assertions.assertEquals(ObjectNotFoundExcepition.class,ex.getClass());
+        }
+
     }
 
     @Test
