@@ -31,9 +31,7 @@ public class UserServiceImpl implements UserService {
         return opt.orElseThrow(() -> new ObjectNotFoundExcepition("Objeto não encontrado"));
     }
     
-    public List<Usuario> findAll(){
-    	return repository.findAll();
-    }
+    public List<Usuario> findAll(){return repository.findAll(); }
 
 	@Override
 	public Usuario create(UsuarioDTO obj) {

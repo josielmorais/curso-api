@@ -14,6 +14,9 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,12 +61,21 @@ class UserServiceImplTest {
 
         }catch (Exception ex){
             Assertions.assertEquals(ObjectNotFoundExcepition.class,ex.getClass());
+            Assertions.assertEquals("Objeto não encontrado",ex.getMessage());
         }
 
     }
 
     @Test
-    void findAll() {
+    void whenFindAllThenReturnAnListOfUsers() {
+       Mockito.when(repository.findAll()).thenReturn(List.of(user));
+
+       List<Usuario> response = service.findAll();
+
+       Assertions.assertNotNull(response);
+       Assertions.assertEquals(1,response.size());
+       Assertions.assertEquals(1,response.get(0).getId());
+
     }
 
     @Test

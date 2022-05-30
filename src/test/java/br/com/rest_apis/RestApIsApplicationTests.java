@@ -8,8 +8,7 @@ class RestApIsApplicationTests {
 
     @Test
     void main() {
-
-        RestApIsApplication.main(new String[] {});
+    	RestApIsApplication.main(new String[] {});
     }
 
 }
