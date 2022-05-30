@@ -31,6 +31,7 @@ class UserServiceImplTest {
     public static final String NAME = "Valdir";
     public static final String EMAIL = "valdir@email.com";
     public static final String PASSWORD = "123";
+    public static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
     @InjectMocks // Criar uma instância real de uso de UserServiceImpl
     private UserServiceImpl service;
     @Mock // Criar uma instância de mentira
@@ -139,7 +140,22 @@ class UserServiceImplTest {
         Mockito.doNothing().when(repository).deleteById(Mockito.anyInt());
         service.delete(ID);
         Mockito.verify(repository,Mockito.times(1)).deleteById(Mockito.anyInt());
-        
+
+    }
+
+    @Test
+    void deleteWithObjectNotFoundException(){
+        Mockito.when(repository.findById(Mockito.anyInt())).
+                thenThrow(new ObjectNotFoundExcepition("Objeto não encontrado"));
+
+        try{
+            service.delete(ID);
+        } catch (Exception ex){
+            Assertions.assertEquals(ObjectNotFoundExcepition.class,ex.getClass());
+            Assertions.assertEquals(OBJETO_NAO_ENCONTRADO,ex.getMessage());
+        }
+
+
     }
 
     private void startUser(){
