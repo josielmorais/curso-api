@@ -6,6 +6,7 @@ import br.com.rest_apis.repositories.UserRepository;
 import br.com.rest_apis.services.excepitions.ObjectNotFoundExcepition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +81,19 @@ class UserServiceImplTest {
     }
 
     @Test
-    void create() {
+    void whenCreateThenReturnSucess() {
+       Mockito.when(repository.save()).thenReturn(user);
+
+       Usuario response = service.create(userDTO);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Usuario.class,response.getClass());
+        Assertions.assertEquals(ID,response.getId());
+        Assertions.assertEquals(NAME,response.getName());
+        Assertions.assertEquals(EMAIL,response.getEmail());
+        Assertions.assertEquals(PASSWORD,response.getPassword());
+
+
     }
 
     @Test
