@@ -86,15 +86,12 @@ class UserServiceImplTest {
        Mockito.when(repository.save(Mockito.any())).thenReturn(user);
 
        Usuario response = service.create(userDTO);
-
         Assertions.assertNotNull(response);
         Assertions.assertEquals(Usuario.class,response.getClass());
         Assertions.assertEquals(ID,response.getId());
         Assertions.assertEquals(NAME,response.getName());
         Assertions.assertEquals(EMAIL,response.getEmail());
         Assertions.assertEquals(PASSWORD,response.getPassword());
-
-
     }
     @Test
     void whenCreateThenReturnDataIntegrityViolationsException() {
@@ -107,12 +104,20 @@ class UserServiceImplTest {
             Assertions.assertEquals(DataIntegratyViolationExcepition.class,ex.getMessage());
             Assertions.assertEquals("E-mail já cadastrado no sistema",ex.getMessage());
         }
-
-
     }
 
     @Test
-    void update() {
+    void whenUpdateThenReturnSucess() {
+        Mockito.when(repository.save(Mockito.any())).thenReturn(user);
+
+        Usuario response = service.update(userDTO);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Usuario.class,response.getClass());
+        Assertions.assertEquals(ID,response.getId());
+        Assertions.assertEquals(NAME,response.getName());
+        Assertions.assertEquals(EMAIL,response.getEmail());
+        Assertions.assertEquals(PASSWORD,response.getPassword());
     }
 
     @Test
