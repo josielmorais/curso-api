@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class UserResourcesTest {
     public static final String PASSWORD = "123";
     public static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
     public static final List<Usuario> USUARIO_LIST = new ArrayList<>();
+    public static final int INDEX = 0;
     private Usuario user;
     private UsuarioDTO userDTO;
 
@@ -65,6 +67,28 @@ public class UserResourcesTest {
         assertEquals(NAME,response.getBody().getName());
         assertEquals(EMAIL,response.getBody().getEmail());
         assertEquals(PASSWORD,response.getBody().getPassword());
+
+    }
+
+    @Test
+    void whenFindAllThenReturnListOfUserDTO(){
+        when(service.findAll()).thenReturn(USUARIO_LIST);
+        when(mapper.map(any(),any())).thenReturn(userDTO);
+
+        ResponseEntity<List<UsuarioDTO>> response = resource.findAll();
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(ResponseEntity.class,response.getClass());
+        assertEquals(ArrayList.class,response.getBody().getClass());
+        assertEquals(UsuarioDTO.class,response.getBody().get(0).getClass());
+
+        assertEquals(ID,response.getBody().get(INDEX).getId());
+        assertEquals(NAME,response.getBody().get(INDEX).getName());
+        assertEquals(EMAIL,response.getBody().get(INDEX).getEmail());
+        assertEquals(PASSWORD,response.getBody().get(INDEX).getPassword());
+
 
     }
 
