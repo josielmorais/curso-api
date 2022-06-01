@@ -21,8 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class UserResourcesTest {
@@ -115,8 +114,18 @@ public class UserResourcesTest {
         assertEquals(ID,response.getBody().getId());
         assertEquals(NAME,response.getBody().getName());
         assertEquals(EMAIL,response.getBody().getEmail());
+    }
 
+    @Test
+    void whenDeleteThenReturnSuccess(){
+        doNothing().when(service).delete(anyInt());
 
+        ResponseEntity<UsuarioDTO> response = resource.delete(ID);
+
+        assertNotNull(response);
+        assertEquals(ResponseEntity.class,response.getClass());
+        verify(service,times(1)).delete(anyInt());
+        assertEquals(HttpStatus.NO_CONTENT,response.getStatusCode());
     }
 
     private void startUser(){
