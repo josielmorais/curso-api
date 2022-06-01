@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Getter
-@Setter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioDTO {
@@ -18,7 +17,7 @@ public class UsuarioDTO {
 	 private String name;
 	 private String email;
 	
-	 // Nessa anotação: quando for leitura ignora, quando for escrita libera
+	 // Nessa anotação: quando for leitura ignorar, quando for escrita liberar
 	 @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	 private String password;
 
