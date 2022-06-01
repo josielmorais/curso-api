@@ -34,7 +34,7 @@ public class UserResourcesTest {
     public static final List<Usuario> USUARIO_LIST = new ArrayList<>();
     public static final int INDEX = 0;
     private Usuario user;
-    private UsuarioDTO userDTO;
+    private UsuarioDTO userDTO = new UsuarioDTO();
 
 
     @InjectMocks
