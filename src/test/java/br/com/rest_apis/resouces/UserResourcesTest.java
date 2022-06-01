@@ -88,8 +88,16 @@ public class UserResourcesTest {
         assertEquals(NAME,response.getBody().get(INDEX).getName());
         assertEquals(EMAIL,response.getBody().get(INDEX).getEmail());
         assertEquals(PASSWORD,response.getBody().get(INDEX).getPassword());
+    }
+    @Test
+    void whenCreateTheReturnCreated(){
+        when(service.create(any())).thenReturn(user);
 
+        ResponseEntity<UsuarioDTO> response = resource.create(userDTO);
 
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getHeaders().get("Location"));
     }
 
     private void startUser(){
